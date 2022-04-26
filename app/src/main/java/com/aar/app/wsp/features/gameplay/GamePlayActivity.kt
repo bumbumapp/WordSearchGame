@@ -35,6 +35,7 @@ import com.aar.app.wsp.model.Difficulty
 import com.aar.app.wsp.model.GameData
 import com.aar.app.wsp.model.GameMode
 import com.aar.app.wsp.model.UsedWord
+import com.aar.app.wsp.preference.LevelPreference
 import kotlinx.android.synthetic.main.activity_game_play.*
 import kotlinx.android.synthetic.main.partial_game_complete.*
 import kotlinx.android.synthetic.main.partial_game_content.*
@@ -51,6 +52,7 @@ class GamePlayActivity : FullscreenActivity() {
 
     private var letterAdapter: ArrayLetterGridDataAdapter? = null
     private var popupTextAnimation: Animation? = null
+    lateinit var level_pref:LevelPreference
 
     private val extraGameMode: GameMode by lazy {
         (intent.extras?.get(EXTRA_GAME_MODE) as? GameMode) ?: GameMode.Normal
@@ -63,6 +65,7 @@ class GamePlayActivity : FullscreenActivity() {
     private val extraGameThemeId: Int by lazy {
         intent.extras?.getInt(EXTRA_GAME_THEME_ID).orZero()
     }
+
 
     private val extraRowCount: Int by lazy {
         intent.extras?.getInt(EXTRA_ROW_COUNT).orZero()
@@ -80,7 +83,8 @@ class GamePlayActivity : FullscreenActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_play)
         (application as WordSearchApp).appComponent.inject(this)
-
+        level_pref= LevelPreference(this@GamePlayActivity)
+        level.text="Level "+level_pref.getLevel("level")
         initViews()
         initViewModel()
 
@@ -194,7 +198,7 @@ class GamePlayActivity : FullscreenActivity() {
                 val str = item.findViewById<TextView>(R.id.textStr)
                 item.background.setColorFilter(uw?.answerLine!!.color, PorterDuff.Mode.MULTIPLY)
                 str.text = uw.string
-                str.setTextColor(Color.WHITE)
+                str.setTextColor(Color.parseColor("#221f35"))
                 str.paintFlags = str.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 item.startAnimation(AnimationUtils.loadAnimation(this, R.anim.zoom_in_out))
                 text_popup_correct_word.visible()
@@ -353,6 +357,11 @@ class GamePlayActivity : FullscreenActivity() {
                 Handler().postDelayed({
                     val intent = Intent(this@GamePlayActivity, GameOverActivity::class.java)
                     intent.putExtra(GameOverActivity.EXTRA_GAME_ROUND_ID, state.gameData?.id.orZero())
+                    intent.putExtra(GameOverActivity.EXTRA_GAME_OVER_MODE,extraGameMode)
+                    intent.putExtra(GameOverActivity.EXTRA_GAME_DIFFICULTY_OVER,extraDifficulty)
+                    intent.putExtra(GameOverActivity.EXTRA_ROW_COUNT_OVER,extraRowCount)
+                    intent.putExtra(GameOverActivity.EXTRA_COL_COUNT_OVER,extraColumnCount)
+                    intent.putExtra(GameOverActivity.EXTRA_GAME_THEME_ID_OVER,extraGameThemeId)
                     startActivity(intent)
                     finish()
                 }, 800)
@@ -380,7 +389,7 @@ class GamePlayActivity : FullscreenActivity() {
 
             view.background.setColorFilter(usedWord.answerLine!!.color, PorterDuff.Mode.MULTIPLY)
             str.text = usedWord.string
-            str.setTextColor(Color.WHITE)
+            str.setTextColor(Color.parseColor("#221f35"))
             str.paintFlags = str.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             letter_board.addStreakLine(STREAK_LINE_MAPPER.map(usedWord.answerLine!!))
         } else {

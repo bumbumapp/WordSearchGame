@@ -8,6 +8,10 @@
     <color name="bgBtnSettings">#09D261</color>
     <color name="bgBtnSettingsOverlay">#0aff8f00</color>
 
-    <color name="gray">#aa808080</color>
+    <color name="gray">#AAB68C8C</color>
     <color name="gridLine">#FFCA28</color>
+    <color name="light_blue">#373553</color>
+    <color name="dark_blue">#221f35</color>
+    <color name="white">#ffffff</color>
+    <color name="bg_history">#5CA606</color>
 </resources>

@@ -8,14 +8,47 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:id="@+id/linear"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Level 1"
+        android:textSize="25sp"
+        android:id="@+id/level"
+        android:layout_centerInParent="true"
+        android:textColor="@color/white"
+        />
+
+    <TextView
+        android:id="@+id/text_overall_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="@string/init_duration"
+        android:textColor="@color/white"
+        android:layout_marginEnd="10dp"
+        android:textSize="8pt" />
+</RelativeLayout>
+
+
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#dfdfdf"
+        android:background="#131A43"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear"
         app:layout_constraintBottom_toTopOf="@id/layout_current_selected_word">
 
         <com.google.android.flexbox.FlexboxLayout
@@ -24,6 +57,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/_2sdp"
             app:flexWrap="wrap"
+            android:background="@color/white"
             app:justifyContent="center"/>
 
     </ScrollView>
@@ -57,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 tools:text="Text"
-                android:textColor="#683102"
+                android:textColor="#318034"
                 android:textSize="@dimen/_18ssp"
                 android:textStyle="bold"/>
 
@@ -66,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 tools:text="Text 2"
-                android:textColor="#683102"
+                android:textColor="#318034"
                 android:textSize="@dimen/_18ssp"
                 android:textStyle="bold"/>
 
@@ -84,15 +118,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:letterColor="@android:color/black"
+        app:letterColor="@color/white"
         app:letterSize="@dimen/_14ssp"
-        app:lineColor="@color/gridLine"
+        app:lineColor="@color/white"
         app:lineWidth="1px"
         app:snapToGrid="START_END"
+        android:background="#131A43"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/_4sdp"
         android:visibility="visible"/>
 
     <TextView
@@ -110,7 +144,7 @@
         android:paddingRight="@dimen/_12sdp"
         android:paddingTop="@dimen/_6sdp"
         android:textAllCaps="false"
-        android:textColor="@color/colorAccent"
+        android:textColor="#2D512F"
         android:textSize="@dimen/_28ssp"
         android:textStyle="bold"
         android:visibility="visible">
@@ -120,7 +154,7 @@
     <View
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scrollView2"
+        app:layout_constraintTop_toTopOf="@id/letter_board"
         android:layout_width="0dp"
         android:layout_height="1px"
         android:background="#bababa"/>

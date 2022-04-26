@@ -14,7 +14,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="2dp"
         android:textSize="12sp"
-        android:textColor="#8f8f8f"
+        android:textColor="#CCFFFFFF"
         tools:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textTheme"
@@ -28,6 +28,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -45,5 +46,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_forward"
-        tools:ignore="ContentDescription"/>
+        tools:ignore="ContentDescription"
+        app:tint="#B3FFFFFF" />
 </androidx.constraintlayout.widget.ConstraintLayout>

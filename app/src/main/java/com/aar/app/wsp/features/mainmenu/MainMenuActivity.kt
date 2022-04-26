@@ -6,14 +6,17 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.aar.app.wsp.R
+import com.aar.app.wsp.commons.orZero
 import com.aar.app.wsp.features.FullscreenActivity
 import com.aar.app.wsp.features.gamehistory.GameHistoryActivity
+import com.aar.app.wsp.features.gameover.GameOverActivity
 import com.aar.app.wsp.features.gameplay.GamePlayActivity
 import com.aar.app.wsp.features.gamethemeselector.ThemeSelectorActivity
 import com.aar.app.wsp.features.settings.SettingsActivity
 import com.aar.app.wsp.model.Difficulty
 import com.aar.app.wsp.model.GameMode
 import com.aar.app.wsp.model.GameTheme
+import com.aar.app.wsp.preference.LevelPreference
 import com.github.abdularis.horizontalspinner.HorizontalSelector.OnSelectedItemChanged
 import kotlinx.android.synthetic.main.activity_main_menu.*
 
@@ -22,7 +25,7 @@ class MainMenuActivity : FullscreenActivity() {
     private val gameRoundDimValues: IntArray by lazy {
         resources.getIntArray(R.array.game_round_dimension_values)
     }
-
+    lateinit var level:LevelPreference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_menu)
@@ -46,6 +49,40 @@ class MainMenuActivity : FullscreenActivity() {
         btnHistory.setOnClickListener {
             goToHistory()
         }
+        level=LevelPreference(this@MainMenuActivity)
+        if (shouldbeagain()){
+            val intent = Intent(this@MainMenuActivity, GamePlayActivity::class.java)
+            intent.putExtra(GamePlayActivity.EXTRA_GAME_DIFFICULTY, extraDifficulty)
+            intent.putExtra(GamePlayActivity.EXTRA_GAME_MODE, extraGameMode)
+            intent.putExtra(GamePlayActivity.EXTRA_GAME_THEME_ID, extraGameThemeId)
+            intent.putExtra(GamePlayActivity.EXTRA_ROW_COUNT, extraColumnCount)
+            intent.putExtra(GamePlayActivity.EXTRA_COL_COUNT, extraRowCount)
+            startActivity(intent)
+        }
+
+
+    }
+    private val extraGameMode: GameMode by lazy {
+        (intent.extras?.get(MainMenuActivity.EXTRA_GAME_OVER_MODE_MAIN) as? GameMode) ?: GameMode.Normal
+    }
+    private fun shouldbeagain(): Boolean {
+        return intent.extras?.containsKey(MainMenuActivity.bool) ?: false
+    }
+    private val extraDifficulty: Difficulty by lazy {
+        (intent.extras?.get(MainMenuActivity.EXTRA_GAME_DIFFICULTY_MAIN) as? Difficulty) ?: Difficulty.Easy
+    }
+
+    private val extraGameThemeId: Int by lazy {
+        intent.extras?.getInt(MainMenuActivity.EXTRA_GAME_THEME_ID_MAIN).orZero()
+    }
+
+
+    private val extraRowCount: Int by lazy {
+        intent.extras?.getInt(MainMenuActivity.EXTRA_ROW_COUNT_MAIN).orZero()
+    }
+
+    private val extraColumnCount: Int by lazy {
+        intent.extras?.getInt(MainMenuActivity.EXTRA_COL_COUNT_MAIN).orZero()
     }
 
     private fun goToSetting() {
@@ -78,6 +115,7 @@ class MainMenuActivity : FullscreenActivity() {
 
     private fun startNewGame(gameThemeId: Int) {
         val dim = gridSizeDimension
+        level.setLevel("level",1)
         val intent = Intent(this@MainMenuActivity, GamePlayActivity::class.java)
         intent.putExtra(GamePlayActivity.EXTRA_GAME_DIFFICULTY, difficultyFromSpinner)
         intent.putExtra(GamePlayActivity.EXTRA_GAME_MODE, gameModeFromSpinner)
@@ -114,4 +152,18 @@ class MainMenuActivity : FullscreenActivity() {
 
     private val gridSizeDimension: Int
         get() = gameRoundDimValues[selectorGridSize.currentIndex]
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
+    }
+    companion object {
+        const val bool = "again"
+        const val EXTRA_GAME_OVER_MODE_MAIN="game_mode_over_main"
+        const val EXTRA_GAME_THEME_ID_MAIN= "game_theme_id_main"
+        const val EXTRA_ROW_COUNT_MAIN = "row_count_main"
+        const val EXTRA_COL_COUNT_MAIN= "col_count_main"
+        const val EXTRA_GAME_DIFFICULTY_MAIN = "game_max_duration_main"
+
+    }
 }

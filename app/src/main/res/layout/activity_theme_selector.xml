@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/light_blue"
     android:animateLayoutChanges="true"
     tools:context=".features.gamethemeselector.ThemeSelectorActivity">
 
@@ -27,6 +27,7 @@
         android:text="@string/title_theme_selector"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -41,7 +42,7 @@
         android:background="@drawable/bg_btn_update"
         android:text="@string/lbl_update_words"
         android:textAllCaps="false"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
@@ -54,6 +55,7 @@
         android:layout_marginRight="8dp"
         android:text="@string/lbl_data_rev"
         android:textSize="12sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/textRev"
         app:layout_constraintEnd_toStartOf="@+id/textRev"
         app:layout_constraintTop_toTopOf="@+id/textRev"/>
@@ -65,6 +67,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:textSize="12sp"
+        android:textColor="@color/white"
         android:textStyle="italic"
         tools:text="-"
         app:layout_constraintBottom_toBottomOf="@+id/btnUpdate"
@@ -118,11 +121,11 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="4dp"
             android:src="@drawable/ic_forward"
-            android:tint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"/>
+            tools:ignore="ContentDescription"
+            app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

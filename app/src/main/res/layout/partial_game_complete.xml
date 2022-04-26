@@ -4,7 +4,7 @@
     android:id="@+id/layout_complete_popup"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:background="#a2000000"
+    android:background="@color/dark_blue"
     android:layout_gravity="center">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/lbl_complete"
-        android:textColor="@android:color/white"
+        android:textColor="#B1A00C"
         android:textSize="32sp"
         android:textStyle="bold"/>
 

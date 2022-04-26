@@ -9,16 +9,24 @@
     android:background="@android:color/white"
     android:orientation="vertical"
     tools:context="com.aar.app.wsp.features.gameplay.GamePlayActivity">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/layout1"
+    app:layout_constraintBottom_toBottomOf="parent">
     <include
-        android:id="@+id/layout1"
         layout="@layout/partial_game_header"
-        app:layout_constraintTop_toTopOf="parent"/>
+        />
+</LinearLayout>
+
+
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="50dp"
+        android:background="#131A43"
         app:layout_constraintTop_toBottomOf="@id/layout1">
 
         <LinearLayout

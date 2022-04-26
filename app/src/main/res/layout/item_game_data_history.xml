@@ -17,6 +17,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         tools:text="Name"
+        android:textColor="@color/dark_blue"
         app:layout_constraintEnd_toStartOf="@+id/delete_list_item"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="8dp"
-        android:textColor="#a4a4a4"
+        android:textColor="@color/light_blue"
         android:textSize="12sp"
         tools:text="00:00"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +48,8 @@
         android:src="@drawable/ic_delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription"/>
+        tools:ignore="ContentDescription"
+        app:tint="@color/dark_blue" />
 
     <TextView
         android:id="@+id/text_desc"
@@ -55,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:textColor="#a4a4a4"
+        android:textColor="@color/light_blue"
         android:textSize="12sp"
         tools:text="-"
         app:layout_constraintBottom_toBottomOf="@+id/text_overall_duration"

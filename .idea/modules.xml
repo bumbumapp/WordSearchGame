@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Android-Word-Quest.iml" filepath="$PROJECT_DIR$/.idea/modules/Android-Word-Quest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Android-Word-Quest.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Android-Word-Quest.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/horizontalspinner/Android-Word-Quest.horizontalspinner.iml" filepath="$PROJECT_DIR$/.idea/modules/horizontalspinner/Android-Word-Quest.horizontalspinner.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/horizontalselector/horizontalselector.iml" filepath="$PROJECT_DIR$/horizontalselector/horizontalselector.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/word-search-game-proj.iml" filepath="$PROJECT_DIR$/.idea/word-search-game-proj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WordSearchGame.iml" filepath="$PROJECT_DIR$/.idea/modules/WordSearchGame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WordSearchGame.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WordSearchGame.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/horizontalspinner/WordSearchGame.horizontalspinner.iml" filepath="$PROJECT_DIR$/.idea/modules/horizontalspinner/WordSearchGame.horizontalspinner.iml" />
     </modules>
   </component>
 </project>

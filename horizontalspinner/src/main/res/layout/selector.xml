@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/ic_before"
-            android:tint="@android:color/white"/>
+            app:tint="@android:color/white"/>
     </FrameLayout>
 
     <FrameLayout
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/ic_next"
-            android:tint="@android:color/white"/>
+            app:tint="@android:color/white"/>
     </FrameLayout>
 
     <FrameLayout
