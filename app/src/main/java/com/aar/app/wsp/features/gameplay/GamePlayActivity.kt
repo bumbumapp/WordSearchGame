@@ -36,6 +36,10 @@ import com.aar.app.wsp.model.GameData
 import com.aar.app.wsp.model.GameMode
 import com.aar.app.wsp.model.UsedWord
 import com.aar.app.wsp.preference.LevelPreference
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_game_play.*
 import kotlinx.android.synthetic.main.partial_game_complete.*
 import kotlinx.android.synthetic.main.partial_game_content.*
@@ -53,6 +57,7 @@ class GamePlayActivity : FullscreenActivity() {
     private var letterAdapter: ArrayLetterGridDataAdapter? = null
     private var popupTextAnimation: Animation? = null
     lateinit var level_pref:LevelPreference
+    private var mInterstitialAd: InterstitialAd?=null
 
     private val extraGameMode: GameMode by lazy {
         (intent.extras?.get(EXTRA_GAME_MODE) as? GameMode) ?: GameMode.Normal
@@ -89,6 +94,7 @@ class GamePlayActivity : FullscreenActivity() {
         initViewModel()
 
         loadOrGenerateNewGame()
+        setUpInterstitialAd()
     }
 
     private fun initViews() {
@@ -135,6 +141,9 @@ class GamePlayActivity : FullscreenActivity() {
     }
 
     private fun initViewModel() {
+        MobileAds.initialize(this)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
         viewModel.onTimer.observe(this, Observer { duration: Int -> showDuration(duration) })
         viewModel.onCountDown.observe(this, Observer { countDown: Int -> showCountDown(countDown) })
         viewModel.onGameState.observe(this, Observer { gameState: GameState -> onGameStateChanged(gameState) })
@@ -226,7 +235,36 @@ class GamePlayActivity : FullscreenActivity() {
                 showLoading(true, getString(R.string.lbl_load_game_data))
             }
             is Finished -> {
-                showFinishGame(gameState)
+                if (mInterstitialAd!!.isLoaded) {
+                    mInterstitialAd!!.show()
+                }
+                else{
+                    showFinishGame(gameState)
+                }
+                mInterstitialAd!!.adListener = object: AdListener() {
+                    override fun onAdLoaded() {
+
+                    }
+
+                    override fun onAdFailedToLoad(errorCode: Int) {
+
+                    }
+
+                    override fun onAdOpened() {
+
+                    }
+
+
+
+                    override fun onAdLeftApplication() {
+
+                    }
+
+                    override fun onAdClosed() {
+                        showFinishGame(gameState)
+                    }
+                }
+
             }
             is Playing -> {
                 gameState.gameData?.let { onGameRoundLoaded(it) }
@@ -419,7 +457,11 @@ class GamePlayActivity : FullscreenActivity() {
         }
         return null
     }
-
+    private fun setUpInterstitialAd() {
+        mInterstitialAd = InterstitialAd(applicationContext)
+        mInterstitialAd!!.adUnitId = "ca-app-pub-8444865753152507/7507988538"
+        mInterstitialAd!!.loadAd(AdRequest.Builder().build())
+    }
     companion object {
         const val EXTRA_GAME_DIFFICULTY = "game_max_duration"
         const val EXTRA_GAME_DATA_ID = "game_data_id"

@@ -123,11 +123,13 @@
         app:lineColor="@color/white"
         app:lineWidth="1px"
         app:snapToGrid="START_END"
+        android:layout_marginBottom="1px"
         android:background="#131A43"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="visible"/>
+
 
     <TextView
         android:id="@+id/text_popup_correct_word"
@@ -155,6 +157,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/letter_board"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:background="#bababa"/>
+    <View
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/letter_board"
         android:layout_width="0dp"
         android:layout_height="1px"
         android:background="#bababa"/>

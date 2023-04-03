@@ -4,7 +4,13 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/WordSearchGame.iml" filepath="$PROJECT_DIR$/.idea/modules/WordSearchGame.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WordSearchGame.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WordSearchGame.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WordSearchGame.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WordSearchGame.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WordSearchGame.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WordSearchGame.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WordSearchGame.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WordSearchGame.app.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/horizontalspinner/WordSearchGame.horizontalspinner.iml" filepath="$PROJECT_DIR$/.idea/modules/horizontalspinner/WordSearchGame.horizontalspinner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/horizontalspinner/WordSearchGame.horizontalspinner.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/horizontalspinner/WordSearchGame.horizontalspinner.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/horizontalspinner/WordSearchGame.horizontalspinner.main.iml" filepath="$PROJECT_DIR$/.idea/modules/horizontalspinner/WordSearchGame.horizontalspinner.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/horizontalspinner/WordSearchGame.horizontalspinner.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/horizontalspinner/WordSearchGame.horizontalspinner.unitTest.iml" />
     </modules>
   </component>
 </project>

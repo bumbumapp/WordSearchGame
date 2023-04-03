@@ -9,11 +9,7 @@
     android:orientation="horizontal">
 
 
-<View
-    android:layout_width="match_parent"
-    android:layout_height="1px"
-    android:background="#bababa"
-    app:layout_constraintTop_toTopOf="parent"/>
+
 
 
 
@@ -94,6 +90,7 @@
             tools:text="Selected Chars"/>
 
     </LinearLayout>
+
 
     <ProgressBar
         android:id="@+id/progress_overall_duration"
