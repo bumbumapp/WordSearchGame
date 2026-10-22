@@ -8,7 +8,6 @@ import com.aar.app.wsp.R
 import com.aar.app.wsp.commons.DurationFormatter.fromInteger
 import com.aar.app.wsp.custom.easyadapter.AdapterDelegate
 import com.aar.app.wsp.model.GameDataInfo
-import kotlinx.android.synthetic.main.item_game_data_history.view.*
 
 class GameDataAdapterDelegate : AdapterDelegate<GameDataInfo, GameDataAdapterDelegate.ViewHolder>(GameDataInfo::class.java) {
 
@@ -20,18 +19,18 @@ class GameDataAdapterDelegate : AdapterDelegate<GameDataInfo, GameDataAdapterDel
     }
 
     override fun onBindViewHolder(model: GameDataInfo, holder: ViewHolder) {
-        holder.itemView.text_name.text = model.name
-        holder.itemView.text_overall_duration.text = fromInteger(model.duration)
+        holder.itemView.findViewById<android.widget.TextView>(R.id.text_name).text = model.name
+        holder.itemView.findViewById<android.widget.TextView>(R.id.text_overall_duration).text = fromInteger(model.duration)
 
         var desc = holder.itemView.context.getString(R.string.game_data_desc)
         desc = desc.replace(":gridSize".toRegex(), "${model.gridRowCount}x${model.gridColCount}")
         desc = desc.replace(":wordCount".toRegex(), model.usedWordsCount.toString())
-        holder.itemView.text_desc.text = desc
+        holder.itemView.findViewById<android.widget.TextView>(R.id.text_desc).text = desc
 
         holder.itemView.setOnClickListener {
             onClickListener?.onClick(model)
         }
-        holder.itemView.delete_list_item.setOnClickListener {
+        holder.itemView.findViewById<android.view.View>(R.id.delete_list_item).setOnClickListener {
             onClickListener?.onDeleteClick(model)
         }
     }

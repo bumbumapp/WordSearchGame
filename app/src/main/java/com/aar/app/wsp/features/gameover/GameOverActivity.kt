@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.app.NavUtils
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import com.aar.app.wsp.R
@@ -19,11 +18,16 @@ import com.aar.app.wsp.model.Difficulty
 import com.aar.app.wsp.model.GameData
 import com.aar.app.wsp.model.GameMode
 import com.aar.app.wsp.preference.LevelPreference
-import kotlinx.android.synthetic.main.activity_game_over.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class GameOverActivity : FullscreenActivity() {
+    // Former kotlin-android-extensions synthetic views (plugin removed in Kotlin 2).
+    private val btnReplay by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.Button>(R.id.btnReplay) }
+    private val game_stat_text by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextView>(R.id.game_stat_text) }
+    private val main_menu_btn by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.Button>(R.id.main_menu_btn) }
+    private val textCongrat by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextView>(R.id.textCongrat) }
+
     @JvmField
     @Inject
     var mViewModelFactory: ViewModelProvider.Factory? = null
@@ -34,7 +38,7 @@ class GameOverActivity : FullscreenActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_over)
         (application as WordSearchApp).appComponent.inject(this)
-        viewModel = ViewModelProviders.of(this, mViewModelFactory).get(GameOverViewModel::class.java)
+        viewModel = ViewModelProvider(this, mViewModelFactory!!).get(GameOverViewModel::class.java)
         viewModel.onGameDataLoaded.observe(this) { gameData ->
             gameData?.let {
                 showGameStat(it)

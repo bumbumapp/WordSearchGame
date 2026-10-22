@@ -15,11 +15,15 @@ import com.aar.app.wsp.custom.easyadapter.MultiTypeAdapter
 import com.aar.app.wsp.features.FullscreenActivity
 import com.aar.app.wsp.features.gameplay.GamePlayActivity
 import com.aar.app.wsp.model.GameDataInfo
-import kotlinx.android.synthetic.main.activity_game_history.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class GameHistoryActivity : FullscreenActivity() {
+    // Former kotlin-android-extensions synthetic views (plugin removed in Kotlin 2).
+    private val btnClear by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.Button>(R.id.btnClear) }
+    private val recyclerView by lazy(LazyThreadSafetyMode.NONE) { findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerView) }
+    private val textEmpty by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextView>(R.id.textEmpty) }
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel: GameHistoryViewModel by viewModels { viewModelFactory }
@@ -35,7 +39,7 @@ class GameHistoryActivity : FullscreenActivity() {
             onGameDataInfoLoaded(gameDataInfoList)
         }
         btnClear.setOnClickListener {
-            lifecycleScope.launch { viewModel.clear() }
+            lifecycleScope.launch { viewModel.clearHistory() }
         }
     }
 

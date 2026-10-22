@@ -30,7 +30,7 @@ class GameHistoryViewModel @Inject constructor(
         loadGameHistory()
     }
 
-    suspend fun clear() {
+    suspend fun clearHistory() {
         gameDataSource.clearGameData()
         _onGameDataInfoLoaded.value = emptyList()
         preferences.resetSaveGameDataCount()

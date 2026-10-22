@@ -12,6 +12,7 @@ class WordSearchApp : Application() {
     lateinit var appComponent: AppComponent
     override fun onCreate() {
         super.onCreate()
+        registerActivityLifecycleCallbacks(EdgeToEdgeCallbacks())
         appComponent = DaggerAppComponent.builder().appModule(AppModule(this)).build()
     }
 

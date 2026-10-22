@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,10 +21,17 @@ import com.aar.app.wsp.features.FullscreenActivity
 import com.aar.app.wsp.features.gamethemeselector.ThemeSelectorViewModel.ResponseType
 import com.aar.app.wsp.model.GameTheme
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_theme_selector.*
 import javax.inject.Inject
 
 class ThemeSelectorActivity : FullscreenActivity() {
+    // Former kotlin-android-extensions synthetic views (plugin removed in Kotlin 2).
+    private val btnAllTheme by lazy(LazyThreadSafetyMode.NONE) { findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.btnAllTheme) }
+    private val btnUpdate by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.Button>(R.id.btnUpdate) }
+    private val loadingLayout by lazy(LazyThreadSafetyMode.NONE) { findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.loadingLayout) }
+    private val progressBar by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.ProgressBar>(R.id.progressBar) }
+    private val rvThemes by lazy(LazyThreadSafetyMode.NONE) { findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.rvThemes) }
+    private val textRev by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextView>(R.id.textRev) }
+
     @JvmField
     @Inject
     var mViewModelFactory: ViewModelProvider.Factory? = null
@@ -57,7 +63,7 @@ class ThemeSelectorActivity : FullscreenActivity() {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, mViewModelFactory).get(ThemeSelectorViewModel::class.java)
+        viewModel = ViewModelProvider(this, mViewModelFactory!!).get(ThemeSelectorViewModel::class.java)
         viewModel.onGameThemeLoaded.observe(this) { gameThemes: List<GameThemeItem>? ->
             adapter.setItems(gameThemes)
             rvThemes.visible()

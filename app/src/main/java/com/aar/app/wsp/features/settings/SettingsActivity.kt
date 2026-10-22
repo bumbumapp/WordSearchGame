@@ -6,12 +6,13 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
 import com.aar.app.wsp.R
-import kotlinx.android.synthetic.main.activity_settings.*
-
 /**
  * Created by abdularis on 21/07/17.
  */
 class SettingsActivity : AppCompatActivity() {
+    // Former kotlin-android-extensions synthetic views (plugin removed in Kotlin 2).
+    private val back by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.ImageView>(R.id.back) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)

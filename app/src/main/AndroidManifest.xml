@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aar.app.wsp">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -12,25 +11,30 @@
         android:roundIcon="@mipmap/app_logo_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:enableOnBackInvokedCallback="false"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name="com.aar.app.wsp.features.settings.SettingsActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/SettingsTheme">
         </activity>
         <activity
             android:name="com.aar.app.wsp.features.gameplay.GamePlayActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name="com.aar.app.wsp.features.mainmenu.MainMenuActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
             android:name="com.aar.app.wsp.features.gameover.GameOverActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
@@ -54,13 +58,15 @@
         </activity>
         <activity
             android:name="com.aar.app.wsp.features.gamehistory.GameHistoryActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name="com.aar.app.wsp.features.gamethemeselector.ThemeSelectorActivity">
+        <activity android:name="com.aar.app.wsp.features.gamethemeselector.ThemeSelectorActivity"
+            android:exported="false">
         </activity>
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8444865753152507~1325723563"/>
+            android:value="@string/admob_app_id"/>
     </application>
 
 </manifest>

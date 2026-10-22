@@ -18,9 +18,16 @@ import com.aar.app.wsp.model.GameMode
 import com.aar.app.wsp.model.GameTheme
 import com.aar.app.wsp.preference.LevelPreference
 import com.github.abdularis.horizontalspinner.HorizontalSelector.OnSelectedItemChanged
-import kotlinx.android.synthetic.main.activity_main_menu.*
-
 class MainMenuActivity : FullscreenActivity() {
+
+    // Former kotlin-android-extensions synthetic views (plugin removed in Kotlin 2).
+    private val btnHistory by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.Button>(R.id.btnHistory) }
+    private val btnNewGame by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.Button>(R.id.btnNewGame) }
+    private val btnSettings by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.Button>(R.id.btnSettings) }
+    private val imageEnjoy by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextView>(R.id.imageEnjoy) }
+    private val selectorDifficulty by lazy(LazyThreadSafetyMode.NONE) { findViewById<com.github.abdularis.horizontalspinner.HorizontalSelector>(R.id.selectorDifficulty) }
+    private val selectorGameMode by lazy(LazyThreadSafetyMode.NONE) { findViewById<com.github.abdularis.horizontalspinner.HorizontalSelector>(R.id.selectorGameMode) }
+    private val selectorGridSize by lazy(LazyThreadSafetyMode.NONE) { findViewById<com.github.abdularis.horizontalspinner.HorizontalSelector>(R.id.selectorGridSize) }
 
     private val gameRoundDimValues: IntArray by lazy {
         resources.getIntArray(R.array.game_round_dimension_values)

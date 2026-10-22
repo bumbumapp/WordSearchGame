@@ -18,6 +18,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.aar.app.wsp.AdsHelper
 import com.aar.app.wsp.R
 import com.aar.app.wsp.WordSearchApp
 import com.aar.app.wsp.commons.DurationFormatter.fromInteger
@@ -36,17 +37,31 @@ import com.aar.app.wsp.model.GameData
 import com.aar.app.wsp.model.GameMode
 import com.aar.app.wsp.model.UsedWord
 import com.aar.app.wsp.preference.LevelPreference
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
-import com.google.android.gms.ads.MobileAds
-import kotlinx.android.synthetic.main.activity_game_play.*
-import kotlinx.android.synthetic.main.partial_game_complete.*
-import kotlinx.android.synthetic.main.partial_game_content.*
-import kotlinx.android.synthetic.main.partial_game_header.*
 import javax.inject.Inject
 
 class GamePlayActivity : FullscreenActivity() {
+    // Former kotlin-android-extensions synthetic views (plugin removed in Kotlin 2).
+    private val adView by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.view.ViewGroup>(R.id.adView) }
+    private val content_layout by lazy(LazyThreadSafetyMode.NONE) { findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.content_layout) }
+    private val flexbox_layout by lazy(LazyThreadSafetyMode.NONE) { findViewById<com.google.android.flexbox.FlexboxLayout>(R.id.flexbox_layout) }
+    private val layout_complete_popup by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.FrameLayout>(R.id.layout_complete_popup) }
+    private val layout_current_selected_word by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.FrameLayout>(R.id.layout_current_selected_word) }
+    private val letter_board by lazy(LazyThreadSafetyMode.NONE) { findViewById<com.aar.app.wsp.custom.LetterBoard>(R.id.letter_board) }
+    private val level by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextView>(R.id.level) }
+    private val loading by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.ProgressBar>(R.id.loading) }
+    private val loadingText by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextView>(R.id.loadingText) }
+    private val progress_overall_duration by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.ProgressBar>(R.id.progress_overall_duration) }
+    private val progress_word_duration by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.ProgressBar>(R.id.progress_word_duration) }
+    private val text_answered_string_count by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextView>(R.id.text_answered_string_count) }
+    private val text_complete_popup by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextView>(R.id.text_complete_popup) }
+    private val text_current_selected_word by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextSwitcher>(R.id.text_current_selected_word) }
+    private val text_game_finished by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextView>(R.id.text_game_finished) }
+    private val text_overall_duration by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextView>(R.id.text_overall_duration) }
+    private val text_popup_correct_word by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextView>(R.id.text_popup_correct_word) }
+    private val text_selection by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextView>(R.id.text_selection) }
+    private val text_selection_layout by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.LinearLayout>(R.id.text_selection_layout) }
+    private val text_words_count by lazy(LazyThreadSafetyMode.NONE) { findViewById<android.widget.TextView>(R.id.text_words_count) }
+
     @Inject
     lateinit var soundPlayer: SoundPlayer
 
@@ -57,7 +72,6 @@ class GamePlayActivity : FullscreenActivity() {
     private var letterAdapter: ArrayLetterGridDataAdapter? = null
     private var popupTextAnimation: Animation? = null
     lateinit var level_pref:LevelPreference
-    private var mInterstitialAd: InterstitialAd?=null
 
     private val extraGameMode: GameMode by lazy {
         (intent.extras?.get(EXTRA_GAME_MODE) as? GameMode) ?: GameMode.Normal
@@ -94,7 +108,6 @@ class GamePlayActivity : FullscreenActivity() {
         initViewModel()
 
         loadOrGenerateNewGame()
-        setUpInterstitialAd()
     }
 
     private fun initViews() {
@@ -141,9 +154,11 @@ class GamePlayActivity : FullscreenActivity() {
     }
 
     private fun initViewModel() {
-        MobileAds.initialize(this)
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
+        // UMP consent first; Mobile Ads starts and requests ads only after canRequestAds().
+        AdsHelper.gatherConsent(this) {
+            AdsHelper.loadBanner(this, adView, getString(R.string.banner_id))
+            AdsHelper.preloadInterstitial(this, getString(R.string.interstitial_id))
+        }
         viewModel.onTimer.observe(this, Observer { duration: Int -> showDuration(duration) })
         viewModel.onCountDown.observe(this, Observer { countDown: Int -> showCountDown(countDown) })
         viewModel.onGameState.observe(this, Observer { gameState: GameState -> onGameStateChanged(gameState) })
@@ -235,36 +250,10 @@ class GamePlayActivity : FullscreenActivity() {
                 showLoading(true, getString(R.string.lbl_load_game_data))
             }
             is Finished -> {
-                if (mInterstitialAd!!.isLoaded) {
-                    mInterstitialAd!!.show()
+                // Natural break: capped interstitial, then the result screen.
+                AdsHelper.showInterstitialIfReady(this, getString(R.string.interstitial_id)) {
+                    if (!isFinishing && !isDestroyed) showFinishGame(gameState)
                 }
-                else{
-                    showFinishGame(gameState)
-                }
-                mInterstitialAd!!.adListener = object: AdListener() {
-                    override fun onAdLoaded() {
-
-                    }
-
-                    override fun onAdFailedToLoad(errorCode: Int) {
-
-                    }
-
-                    override fun onAdOpened() {
-
-                    }
-
-
-
-                    override fun onAdLeftApplication() {
-
-                    }
-
-                    override fun onAdClosed() {
-                        showFinishGame(gameState)
-                    }
-                }
-
             }
             is Playing -> {
                 gameState.gameData?.let { onGameRoundLoaded(it) }
@@ -456,11 +445,6 @@ class GamePlayActivity : FullscreenActivity() {
             }
         }
         return null
-    }
-    private fun setUpInterstitialAd() {
-        mInterstitialAd = InterstitialAd(applicationContext)
-        mInterstitialAd!!.adUnitId = "ca-app-pub-8444865753152507/7507988538"
-        mInterstitialAd!!.loadAd(AdRequest.Builder().build())
     }
     companion object {
         const val EXTRA_GAME_DIFFICULTY = "game_max_duration"
