@@ -19,7 +19,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/bg_btn_history"
         android:text="@string/main_menu"
-        android:textColor="@color/dark_blue"
+        android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/game_stat_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

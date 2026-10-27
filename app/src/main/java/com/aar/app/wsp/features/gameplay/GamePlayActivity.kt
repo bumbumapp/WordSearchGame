@@ -222,7 +222,7 @@ class GamePlayActivity : FullscreenActivity() {
                 val str = item.findViewById<TextView>(R.id.textStr)
                 item.background.setColorFilter(uw?.answerLine!!.color, PorterDuff.Mode.MULTIPLY)
                 str.text = uw.string
-                str.setTextColor(Color.parseColor("#221f35"))
+                str.setTextColor(Color.parseColor("#8A8F9A")) // muted on the graphite word bar
                 str.paintFlags = str.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 item.startAnimation(AnimationUtils.loadAnimation(this, R.anim.zoom_in_out))
                 text_popup_correct_word.visible()
@@ -416,7 +416,7 @@ class GamePlayActivity : FullscreenActivity() {
 
             view.background.setColorFilter(usedWord.answerLine!!.color, PorterDuff.Mode.MULTIPLY)
             str.text = usedWord.string
-            str.setTextColor(Color.parseColor("#221f35"))
+            str.setTextColor(Color.parseColor("#8A8F9A")) // muted on the graphite word bar
             str.paintFlags = str.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             letter_board.addStreakLine(STREAK_LINE_MAPPER.map(usedWord.answerLine!!))
         } else {
