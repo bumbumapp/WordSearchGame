@@ -58,14 +58,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="TextView"
-                android:textColor="@color/bg_button_navigate"
+                android:textColor="@color/dark"
                 android:textAlignment="center"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="TextView 2"
-                android:textColor="@color/bg_button_navigate"
+                android:textColor="@color/dark"
                 android:textAlignment="center"/>
         </TextSwitcher>
     </FrameLayout>

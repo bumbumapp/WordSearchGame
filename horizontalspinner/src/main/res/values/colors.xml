@@ -1,5 +1,5 @@
 <resources>
-    <color name="bg_button_navigate">#3A553B</color>
-    <color name="bg_button_navigate_darker">#48553A</color>
-    <color name="dark">#221f35</color>
+    <color name="bg_button_navigate">#2A2D35</color>
+    <color name="bg_button_navigate_darker">#3A3E47</color>
+    <color name="dark">#F2F3F5</color>
 </resources>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:animateLayoutChanges="true"
-    android:background="#131A43"
+    android:background="#1A1C21"
     android:orientation="vertical"
     tools:context="com.aar.app.wsp.features.gameplay.GamePlayActivity">
 <LinearLayout
@@ -35,7 +35,7 @@
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginBottom="120dp"
-        android:background="#131A43"
+        android:background="#1A1C21"
         app:layout_constraintTop_toBottomOf="@id/layout1">
 
         <LinearLayout

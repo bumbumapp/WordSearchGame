@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#1E88E5</color>
     <color name="colorPrimaryDark">#1565C0</color>
-    <color name="colorAccent">#E91E63</color>
+    <color name="colorAccent">#FF4F8B</color>
     <color name="selTextBgColor">#19ffffff</color>
 
     <color name="bgBtnSettings">#09D261</color>
@@ -10,8 +10,8 @@
 
     <color name="gray">#AAB68C8C</color>
     <color name="gridLine">#FFCA28</color>
-    <color name="light_blue">#373553</color>
-    <color name="dark_blue">#221f35</color>
+    <color name="light_blue">#23262D</color>
+    <color name="dark_blue">#16171B</color>
     <color name="white">#ffffff</color>
-    <color name="bg_history">#5CA606</color>
+    <color name="bg_history">#FFFFFF</color>
 </resources>
