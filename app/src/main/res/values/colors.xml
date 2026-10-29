@@ -10,8 +10,8 @@
 
     <color name="gray">#AAB68C8C</color>
     <color name="gridLine">#FFCA28</color>
-    <color name="light_blue">#23262D</color>
-    <color name="dark_blue">#16171B</color>
+    <color name="light_blue">#262B3A</color>
+    <color name="dark_blue">#171A23</color>
     <color name="white">#ffffff</color>
     <color name="bg_history">#FFFFFF</color>
 </resources>
