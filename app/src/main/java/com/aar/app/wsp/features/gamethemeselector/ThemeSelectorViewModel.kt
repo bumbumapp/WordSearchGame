@@ -34,8 +34,8 @@ class ThemeSelectorViewModel @Inject constructor(
     private val prefs: SharedPreferences = application.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     private val _onGameThemeLoaded: MediatorLiveData<List<GameThemeItem>> = MediatorLiveData()
 
-    fun loadThemes() {
-        _onGameThemeLoaded.addSource(gameThemeRepository.getThemeItemList()) {
+    fun loadThemes(maxChar: Int) {
+        _onGameThemeLoaded.addSource(gameThemeRepository.getThemeItemList(maxChar)) {
             _onGameThemeLoaded.value = it
         }
     }

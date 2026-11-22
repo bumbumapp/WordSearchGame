@@ -13,8 +13,9 @@ interface GameThemeDataSource {
     @Query("SELECT * FROM game_themes")
     suspend fun getThemeList(): List<GameTheme>
 
-    @Query("SELECT *, (SELECT COUNT(*) FROM words WHERE game_theme_id=game_themes.id) as words_count FROM game_themes")
-    fun getThemeItemList(): LiveData<List<GameThemeItem>>
+    /** Themes that have at least one word fitting a grid whose longer side is [maxChar], with that word count. */
+    @Query("SELECT * FROM (SELECT *, (SELECT COUNT(*) FROM words WHERE game_theme_id=game_themes.id AND LENGTH(string) <= :maxChar) AS words_count FROM game_themes) WHERE words_count > 0")
+    fun getThemeItemList(maxChar: Int): LiveData<List<GameThemeItem>>
 
     @Insert
     fun insertAll(gameThemes: List<GameTheme>)

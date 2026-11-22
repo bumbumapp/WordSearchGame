@@ -1,5 +1,6 @@
 package com.aar.app.wsp.features.gamethemeselector
 
+import kotlin.math.max
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
@@ -133,7 +134,7 @@ class ThemeSelectorActivity : FullscreenActivity() {
     private fun loadData() {
         rvThemes.gone()
         progressBar.visible()
-        viewModel.loadThemes()
+        viewModel.loadThemes(max(gridRowCount, gridColCount))
     }
 
     @SuppressLint("CheckResult")
